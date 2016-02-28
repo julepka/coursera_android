@@ -12,7 +12,15 @@ Mobile Cloud Computing with Android Specialization is a series of Android course
 
 Capstone Project shows what students have learned during Specialization. Students need to pass all courses with good grades to be able to take part in Capstone Project.
 
-## Project Requirements
+## Content
+
+* [Project Requirements](#req)
+* [Project Implementation Description](#impl)
+* [Client Implementation](#client)
+* [Server Implementation](#server)
+* [Requirements Fulfillment](#req2)
+
+## <a name="req"></a>Project Requirements
 
 I worked on The Daily Selfie with Concurrent Image Processing Capstone Project. The Concurrent Daily Selfie application is an extension of one of the mini-projects in Professor Porter’s MOOCs, which enables users to take pictures of themselves - selfies - over an extended period of time. It periodically reminds the user to take a selfie and presents the selfies in a list that makes it easy to see how the user has changed over time. This extended implementation also allows users to process their selfies to add effects, such as blurring or charcoaling. The image processing is done via a remote web service. In addition, all interactions between the device and the remote web service should be done concurrently in the background to ensure that the UI thread on the device is not interrupted. 
 
@@ -58,7 +66,7 @@ To pass the Capstone MOOC, the average of all the Assessor reviews must be >= 70
 * The complete project source code and associated files needed to build the project. Note that all software will ultimately need to be released in open-source form to facilitate peer assessment. Students are responsible for not including proprietary software in their solutions. Students who aren't willing to release their solutions in open-source form can still participate in the Capstone project, but their solutions won't be evaluated and they won't receive credit for passing the Capstone.
 * A screencast video showing the working project (submitted separately as a link to the video).
 
-## Project Implementation Description
+## <a name="impl"></a>Project Implementation Description
 
 I decided to modify the name of the application because there are so many uses for the app with such functionality. For example, you can take not selfies but pictures of your kitten and see how he is growing up. Another use is capturing the growth of plants. That is why I think that “Daily Photo” is a better name for my project.
 The final projects contains two parts: mobile application and backend server.
@@ -89,7 +97,7 @@ To filter a photo user needs to press Filter Photo button on Gallery Screen. The
 
 Application will send user notification to remind to take a photo. Tapping the notification will launch the application. In release version it should appear one time a day everyday. For testing purposes this time interval was decreased.
 
-## Client Implementation
+## <a name="client"></a>Client Implementation
 
 ### Main Activity
 
@@ -212,7 +220,7 @@ Application requires the next permissions:
 
 Application has only one Activity - Main Activity. Its launch mode is single task and it is cleared on launch. Application has one Service - Notification Service.
 
-## Server Implementation
+## <a name="server"></a>Server Implementation
 	
 Server is Spring-based and uses Spring boot. API is implemented using Retrofit and it is almost similar to the one that is on the client. The only difference is in some return types. Server has the same Photo POJO as client does, it stores Photos in CrudRepository (repository package). To launch server, Application.java should be run. Major part of server was provided during the course by instructors. The main thing that had to be implemented was a perository and controller.
 
@@ -274,49 +282,49 @@ Blur Matrix:		   Sharpen Matrix:
 0  0  1  0  0			-1 -1 -1 -1 -1
 ```
 
-# Requirements Fulfillment
-## Basic Requirements
-### Multiple Individual User Accounts
+## <a name="req2"></a>Requirements Fulfillment
+### Basic Requirements
+#### Multiple Individual User Accounts
 Project supports multiple user accounts. Mobile Application has Login Screen to operate user credentials. Server saves owner of each photo it receives to Photo Metadata. When server receives getPhotoList() request, it sends only photos with owner that equals current authenticated user. 
 
-### One User Facing Operation for Authenticated Users Only
+#### One User Facing Operation for Authenticated Users Only
 There is only one user facing operation that is available for not authenticated users - Login Screen. All other screens and operations are available only for authenticated users.
 
-### Two components: Activity, BroadcastReceiver, Service, ContentProvider
+#### Two components: Activity, BroadcastReceiver, Service, ContentProvider
 Application has Activity - MainActivity.java and Service - NotificationService.java.
 
-### Interaction with Spring-based Service via HTTP/HTTPS
+#### Interaction with Spring-based Service via HTTP/HTTPS
 Mobile application interacts with remote Java Spring-based web service via HTTPS. However it ignores certificates for testing purposes. Retrofit library is used to turn HTTP API into convenient Java interface. Client-Server interraction is described in PhotoServiceAPI.java file.
 
-### Three User Interface Screens
+#### Three User Interface Screens
 There are three screens in the application: Login Screen, Gallery Screen, Single Photo Screen. Those screens are Fragments that are placed to MainActivity’s Fragment container.
 
-### One of: Multimedia Capture or Playback, Gestures, Sensors, Animation
+#### One of: Multimedia Capture or Playback, Gestures, Sensors, Animation
 Multimedia capture feature is implemented in Daily Photo. Gallery Fragment sends Intent to camera application to take a photo.
 
-### One Concurrency Framework: HaMeR, AsyncTask
+#### One Concurrency Framework: HaMeR, AsyncTask
 Several classes extending AsyncTask are implemented in PhotoServiceProvider.java class to communicate with remote web service without blocking the UI thread.
 
-## Functional Requirements
-### Taking and Saving Photo
+### Functional Requirements
+#### Taking and Saving Photo
 After passing the Login Screen user can press Take Photo button on Gallery Screen. It will open camera application. If the result in onActivityResult() is OK, it means that photo was taken successfully and it is saved on device. At the same time photo is sent to the server to store it there too.
 
-### Reminder
+#### Reminder
 It is implemented as AlarmManager and NotificationService combination. It remindes user to take a photo everyday. AlarmManager is set in Main Activity. It send intents to Notification Service to show notification periodically.
 
-### Viewing Photo List and Photos in Larger Form
+#### Viewing Photo List and Photos in Larger Form
 Application has Gallery Screen (Gallery Fragment) which basically is a GridView of photos. GridImageAdapter.java describes the way GridView is populated with photos. Tapping on photo in GridView in regular Gallery mode (not in Filtering mode) will open Single Photo Fragment with larger form of the selected photo. Tapping on notification will bring user back to the application.
 
-### Persisting Photos between Mobile Application Launches
+#### Persisting Photos between Mobile Application Launches
 When mobile application closes, photos remain on the device and on the server. When it is opened again, photo list will be received from server and photos will show up. If application is opened from other devices or photos were deleted, they will be downloaded from server.
 
-### Applying Several Filters to Several Selected Photos
+#### Applying Several Filters to Several Selected Photos
 There is a Filter Photo button in Gallery Fragment. User can press it and then select one or more photos and press Done button. After that a list of filters will appear. User can select one or more filters to be applied to selected photos. After pressing OK button, application will create AsyncTask for each selected photo. Each AsyncTask will send server Photo ID and list of filters. When AsyncTask is completed, Gallery is updated and filtered photo will show up.
 
-### Concurrent Image Processing on Server
+#### Concurrent Image Processing on Server
 Server has filterPhoto() method that can process requests concurrently and can process several photos in parallel way. It has two synchronized blocks that won’t let requests access one resource (photo file) simultaneously. What is more, if server receives two requests to process one photo it will return filtered photo only once with applied filters from both requests.
 
-## Implementation Considerations
+### Implementation Considerations
 How will Reminders be used to inform the User that it’s time to take a Selfie? For example, will an Android notification be used, so that clicking on the notification will bring the user to the Daily Selfie application?
 * Yes, Android notifications are used and tapping on the notification will open Daily Photo application.
 
