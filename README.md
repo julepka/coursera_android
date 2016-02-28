@@ -156,6 +156,8 @@ OAuth2.0 is represented by EasyHttpClient.java, SecuredRestBuilder.java and Secu
 
 ### Login Fragment
 
+![Picture](https://raw.githubusercontent.com/julepka/coursera_android/master/screenshots/Screen%20Shot%202016-02-18%20at%203.14.03%20PM.png)
+
 Login Fragment is represented by LoginFragment.java class.
 
 It has three EditTexts for entering server IP address and account credentials: username and password. It also has a Login button that call login() and method which will use Photo Service Provider through Main Activity. After login is complete it requests photo list from Photo Service Provider.
@@ -163,6 +165,8 @@ It has three EditTexts for entering server IP address and account credentials: u
 This is the only screen that not authenticated users can see. Not authenticated users should register first (be added to hardcoded list of users) and then they will be able to pass Login Screen. 
 
 ### Gallery Fragment
+
+![Picture](https://github.com/julepka/coursera_android/blob/master/screenshots/Screen%20Shot%202016-02-18%20at%203.14.19%20PM.png?raw=true) ![Picture](https://github.com/julepka/coursera_android/blob/master/screenshots/Screen%20Shot%202016-02-18%20at%203.15.50%20PM.png) ![Picture](https://github.com/julepka/coursera_android/blob/master/screenshots/Screen%20Shot%202016-02-18%20at%203.16.09%20PM.png?raw=true) ![Picture](https://github.com/julepka/coursera_android/blob/master/screenshots/Screen%20Shot%202016-02-18%20at%203.16.37%20PM.png?raw=true)
 
 Gallery Fragment is represented by GridFragment.java class. It is a main screen of the application. This Fragment has two modes: regular Gallery mode and Filtering mode for selecting photos to filter. It consists of GridView and two buttons that change depending on the current mode.
 
@@ -192,6 +196,8 @@ Single Photo Fragment.
 Single Photo Fragment is represented by PhotoFragment.java class. It is very simple class that only has a custom constructor and onCreateView() method. The assignment of this Fragment is to show larger version of selected photo and its title.
 
 ### Notification Service
+
+![Picture](https://github.com/julepka/coursera_android/blob/master/screenshots/Screen%20Shot%202016-02-18%20at%203.20.42%20PM.png?raw=true)
 
 Notification Service is represented by NotificationService.java class. Main Activity sets up an AlarmManager to send notification in provided frequency. Notification Service is a sticky IntentService. It means that AlarmManager will send intents to it to show notification periodically. If user taps a notification, application will be launched. 
 
