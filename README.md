@@ -71,6 +71,8 @@ To pass the Capstone MOOC, the average of all the Assessor reviews must be >= 70
 I decided to modify the name of the application because there are so many uses for the app with such functionality. For example, you can take not selfies but pictures of your kitten and see how he is growing up. Another use is capturing the growth of plants. That is why I think that “Daily Photo” is a better name for my project.
 The final projects contains two parts: mobile application and backend server.
 
+![Picture](https://github.com/julepka/coursera_android/blob/master/screenshots/andoid.png)
+
 ### Login
 
 User launches the application and the first screen that is shown is a Login Screen. User cannot access application functionality without entering valid server address, username and password. The server field is present for more convenient and flexible application testing, it should not be present in the release version of application.
